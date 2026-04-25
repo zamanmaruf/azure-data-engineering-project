@@ -1,0 +1,15 @@
+{
+	"name": "df-mzazureproject",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "448b07a3-4726-4876-a319-85e734d13aea",
+		"tenantId": "28e5f9f3-ce51-473b-b817-18db7e72a9a9"
+	}
+}
