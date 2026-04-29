@@ -8,6 +8,10 @@ include:
 workspace:
   root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
 
+permissions:
+  - user_name: mdmarufuzzaman.cs_gmail.com#ext#@mdmarufuzzamancsgmail.onmicrosoft.com
+    level: CAN_MANAGE
+
 variables:
   catalog:
     description: Catalog to use for deployment
