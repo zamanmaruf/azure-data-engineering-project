@@ -1,17 +1,14 @@
-# This is a Databricks asset bundle definition for spotify_dab.
-# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
   name: spotify_dab
-  uuid: 8b48b674-dd0a-431e-823a-fad5e7a543f6
 
 include:
   - resources/*.yml
 
 variables:
   catalog:
-    description: The catalog to use
+    description: Catalog to use for deployment
   schema:
-    description: The schema to use
+    description: Schema to use for deployment
 
 targets:
   dev:
@@ -19,14 +16,16 @@ targets:
     default: true
     workspace:
       host: https://adb-7405605258757054.14.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: spotify_cata
       schema: silver
+
   prod:
     mode: production
     workspace:
       host: https://adb-7405605258757054.14.azuredatabricks.net
-      root_path: /Workspace/Users/mdmarufuzzaman.cs_gmail.com#ext#@mdmarufuzzamancsgmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: spotify_cata
       schema: gold
