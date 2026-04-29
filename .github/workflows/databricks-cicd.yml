@@ -12,11 +12,6 @@ jobs:
   deploy-dev:
     name: Deploy to Dev
     runs-on: ubuntu-latest
-    environment: dev
-
-    env:
-      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -32,22 +27,25 @@ jobs:
 
       - name: Validate Bundle
         working-directory: ./databricks_bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_AUTH_TYPE: pat
         run: databricks bundle validate --target dev
 
       - name: Deploy to Dev
         working-directory: ./databricks_bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_AUTH_TYPE: pat
         run: databricks bundle deploy --target dev
 
   deploy-prod:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    environment: prod
     needs: deploy-dev
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    env:
-      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -58,8 +56,16 @@ jobs:
 
       - name: Validate Bundle
         working-directory: ./databricks_bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_AUTH_TYPE: pat
         run: databricks bundle validate --target prod
 
       - name: Deploy to Production
         working-directory: ./databricks_bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_AUTH_TYPE: pat
         run: databricks bundle deploy --target prod
