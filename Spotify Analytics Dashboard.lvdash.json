@@ -1,0 +1,268 @@
+{
+  "datasets": [
+    {
+      "name": "5c54c55c",
+      "displayName": "top_tracks",
+      "queryLines": [
+        "SELECT track_name, artist_name, album_name, total_streams\n",
+        "FROM main.gold.gold_top_tracks\n",
+        "ORDER BY total_streams DESC\n",
+        "LIMIT 10"
+      ]
+    },
+    {
+      "name": "bf7dfd85",
+      "displayName": "top_artists",
+      "queryLines": [
+        "SELECT artist_name, total_streams\n",
+        "FROM main.gold.gold_top_artists\n",
+        "ORDER BY total_streams DESC\n",
+        "LIMIT 10"
+      ]
+    },
+    {
+      "name": "a215056e",
+      "displayName": "monthly_streams",
+      "queryLines": [
+        "SELECT year, month, total_streams,\n",
+        "  CONCAT(year, '-', LPAD(CAST(month AS STRING), 2, '0')) as month_label\n",
+        "FROM main.gold.gold_monthly_streams\n",
+        "ORDER BY year, month"
+      ]
+    },
+    {
+      "name": "77996f46",
+      "displayName": "device_streams",
+      "queryLines": [
+        "SELECT device_type, COUNT(*) as total_streams\n",
+        "FROM spotify_catalog.silver.fact_streams\n",
+        "GROUP BY device_type\n",
+        "ORDER BY total_streams DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "1621576b",
+      "displayName": "Spotify Analytics",
+      "layout": [
+        {
+          "widget": {
+            "name": "top-10-tracks-by-streams",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5c54c55c",
+                  "fields": [
+                    {
+                      "name": "track_name",
+                      "expression": "`track_name`"
+                    },
+                    {
+                      "name": "sum(total_streams)",
+                      "expression": "SUM(`total_streams`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 Tracks by Streams"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "track_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_streams)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 7,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "top-10-artists-by-streams",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf7dfd85",
+                  "fields": [
+                    {
+                      "name": "artist_name",
+                      "expression": "`artist_name`"
+                    },
+                    {
+                      "name": "sum(total_streams)",
+                      "expression": "SUM(`total_streams`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 Artists by Streams"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "artist_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_streams)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "monthly-streams-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a215056e",
+                  "fields": [
+                    {
+                      "name": "month_label",
+                      "expression": "`month_label`"
+                    },
+                    {
+                      "name": "sum(total_streams)",
+                      "expression": "SUM(`total_streams`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Monthly Streams Trend"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_label",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_streams)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 4,
+            "width": 7,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "device-streams",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "77996f46",
+                  "fields": [
+                    {
+                      "name": "sum(total_streams)",
+                      "expression": "SUM(`total_streams`)"
+                    },
+                    {
+                      "name": "device_type",
+                      "expression": "`device_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Device Streams"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(total_streams)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "device_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 11,
+            "y": 4,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
