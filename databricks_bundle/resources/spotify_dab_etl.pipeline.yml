@@ -1,19 +1,19 @@
-# The main pipeline for spotify_dab
+# Spotify DAB - Delta Live Tables Pipeline
+# Deploys the DLT pipeline to the target Databricks workspace
 
 resources:
   pipelines:
     spotify_dab_etl:
       name: spotify_dab_etl
       catalog: ${var.catalog}
-      schema: ${var.schema}
+      target: ${var.schema}
       serverless: true
-
-      # Libraries define what code the pipeline runs.
-      # Point this at a real notebook or Python file in your bundle.
       libraries:
         - notebook:
             path: ../src/silver/silver_Dimensions.ipynb
-
       configuration:
         catalog: ${var.catalog}
         schema: ${var.schema}
+      permissions:
+        - level: CAN_VIEW
+          group_name: users
