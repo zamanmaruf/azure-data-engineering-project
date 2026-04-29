@@ -7,14 +7,13 @@ resources:
       catalog: ${var.catalog}
       schema: ${var.schema}
       serverless: true
-      root_path: "../src/spotify_dab_etl"
 
+      # Libraries define what code the pipeline runs.
+      # Point this at a real notebook or Python file in your bundle.
       libraries:
-        - glob:
-            include: ../src/spotify_dab_etl/transformations/**
+        - notebook:
+            path: ../src/silver/silver_Dimensions.ipynb
 
-      environment:
-        dependencies:
-          # We include every dependency defined by pyproject.toml by defining an editable environment
-          # that points to the folder where pyproject.toml is deployed.
-          - --editable ${workspace.file_path}
+      configuration:
+        catalog: ${var.catalog}
+        schema: ${var.schema}
