@@ -19,7 +19,7 @@ targets:
     mode: development
     workspace:
       root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
-      variables:
+    variables:
       catalog: spotify_cata
       schema: silver
   prod:
