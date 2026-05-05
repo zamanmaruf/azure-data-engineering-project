@@ -17,7 +17,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BUNDLE_ROOT: ./databricks_bundle
   DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
   DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
   DATABRICKS_AUTH_TYPE: pat
@@ -28,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.BUNDLE_ROOT }}
+        working-directory: ./databricks_bundle
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,7 +50,7 @@ jobs:
     environment: dev
     defaults:
       run:
-        working-directory: ${{ env.BUNDLE_ROOT }}
+        working-directory: ./databricks_bundle
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -73,7 +72,7 @@ jobs:
     environment: prod
     defaults:
       run:
-        working-directory: ${{ env.BUNDLE_ROOT }}
+        working-directory: ./databricks_bundle
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
