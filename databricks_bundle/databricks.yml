@@ -15,14 +15,13 @@ variables:
 
 targets:
   dev:
-    mode: development
+    mode: production
     default: true
     variables:
       catalog: spotify_dev
       schema: default
     workspace:
-      root_path: "~/.bundle/${bundle.name}/${bundle.target}"
-
+      root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
   prod:
     mode: production
     variables:
