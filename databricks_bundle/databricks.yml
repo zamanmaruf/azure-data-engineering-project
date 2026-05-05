@@ -4,14 +4,29 @@ bundle:
 include:
   - resources/*.yml
 
+variables:
+  catalog:
+    description: Unity Catalog name for the target environment
+    default: spotify_dev
+
+  schema:
+    description: Schema name for the target environment
+    default: default
+
 targets:
   dev:
     mode: development
     default: true
+    variables:
+      catalog: spotify_dev
+      schema: default
     workspace:
       root_path: "~/.bundle/${bundle.name}/${bundle.target}"
 
   prod:
     mode: production
+    variables:
+      catalog: spotify_prod
+      schema: default
     workspace:
       root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
