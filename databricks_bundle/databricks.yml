@@ -16,10 +16,9 @@ variables:
 
 targets:
   dev:
-    mode: production
-    default: true
+mode: development
     workspace:
-      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+      root_path: ~/.bundle/${bundle.name}/${bundle.target}
       file_path: ${workspace.root_path}/files
       artifact_path: ${workspace.root_path}/artifacts
       state_path: ${workspace.root_path}/state
@@ -29,7 +28,7 @@ targets:
   prod:
     mode: production
     workspace:
-      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+      root_path: ~/.bundle/${bundle.name}/${bundle.target}
       file_path: ${workspace.root_path}/files
       artifact_path: ${workspace.root_path}/artifacts
       state_path: ${workspace.root_path}/state
