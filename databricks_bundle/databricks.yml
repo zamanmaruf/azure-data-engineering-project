@@ -16,7 +16,7 @@ variables:
 
 targets:
   dev:
-  mode: development
+    mode: development
     workspace:
       root_path: ~/.bundle/${bundle.name}/${bundle.target}
       file_path: ${workspace.root_path}/files
