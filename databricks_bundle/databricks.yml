@@ -21,11 +21,11 @@ targets:
       catalog: spotify_dev
       schema: default
     workspace:
-      root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Users/mdmarufuzzaman.cs_gmail.com#ext#@mdmarufuzzamancsgmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
   prod:
     mode: production
     variables:
       catalog: spotify_prod
       schema: default
     workspace:
-      root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Users/mdmarufuzzaman.cs_gmail.com#ext#@mdmarufuzzamancsgmail.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
